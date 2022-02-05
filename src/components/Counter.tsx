@@ -3,32 +3,47 @@ import {connect} from 'react-redux';
 import {Action} from "redux";
 
 interface CounterProps {
-    count: number;
-    onClick: () => void;
+    numerator: number;
+    denominator: number
+    randomlyIncrementNumerator: () => void;
+    randomlyIncrementDenominator: () => void;
+    resetBoth: () => void;
 }
 
 const Counter = (props: CounterProps) => (
   <div>
-    <div>Current count: {props.count}</div>
-    <button onClick={props.onClick}>Increment</button>
+    <div>Current numerator: {props.numerator}</div>
+      <div>Current denominator: {props.denominator}</div>
+
+      <button onClick={props.randomlyIncrementNumerator}>Increment Numerator</button>
+      <button onClick={props.randomlyIncrementDenominator}>Increment Demoninator</button>
+      <button onClick={props.resetBoth}>Reset both</button>
   </div>
 );
 
 interface StoreState {
-    count: number
+    numerator: number
+    denominator: number
 }
 
 function mapStateToProps(state: StoreState) {
     return {
-        count: state.count
+        numerator: state.numerator,
+        denominator: state.denominator
     };
 }
 
 function mapDispatchToProps(dispatch: Dispatch<Action<string>>) {
     return {
-        onClick: () => dispatch({
-            type: 'INCREMENT'
-        })
+        randomlyIncrementNumerator: () => dispatch({
+            type: 'INCREMENT_NUMERATOR'
+        }),
+        randomlyIncrementDenominator: () => dispatch({
+            type: 'INCREMENT_DENOMINATOR'
+        }),
+        resetBoth: () => dispatch(({
+            type: 'RESET_BOTH'
+        }))
     };
 }
 
